@@ -1,36 +1,44 @@
 #テーブル設計
 
-## user  テーブル
+## users  テーブル
 | Column             | Type   | Options     |
 | ------------------ | ------ | ----------- |
+| nickname           | string | null: false |
 | email              | string | null: false, unique: true |
 | encrypted_password | string | null: false |
-| name               | string | null: false |
-
-
+| last_name          | string	| null: false |
+| first_name	       | string	| null: false |
+| last_name_kana	   | string	| null: false |
+| first_name_kana    | string	| null: false |
+| birth_date	       |date	  | null: false |
 ### Association
 
-has_many :item
-has_many :order
+has_many :items
+has_many :orders
 
-## item  テーブル
+## items  テーブル
 | column             |type    |options      |
 |--------------------|--------|-------------|
 | name               | string | null: false |
 | description        | text   | null: false |
-| price              | integer | null: false |
-| user_id            | integer | null: false, foreign_key: true|
+| category           | integer | null: false|
+| sales_status       | integer | null: false|
+| shipping_fee_status| integer | null: false|
+| prefecture         | integer | null: false|
+| scheduled_delivery | integer | null: false|
+| price              | integer | null: false|
+| user               |references| null: false, foreign_key: true|
 
 ### Association
 belongs_to :user
-belongs_to :order
+has_one :order
 
 ## order テーブル
 | column             |type    |options      |
 |--------------------|--------|-------------|
-| item_id            | integer | null: false, foreign_key: true |
-| user_id            | integer | null: false, foreign_key: true|
-| status             | string  | null: false |
+| item               |references| null: false, foreign_key: true |
+| user               |references| null: false, foreign_key: true|
+
 
 ### Association
 belongs_to :item
@@ -39,13 +47,14 @@ belongs_to :user
 ##　Address 　テーブル
 | column             |type    |options      |
 |--------------------|--------|-------------|
-| user_id            | integer | null: false, foreign_key: true |
+| user               |references| null: false, foreign_key: true |
 | postal_code        | string | null: false |
 | street_address     | string | null: false |
 | city               | string | null: false |
-| state              | string | null: false |
-| country            | string | null: false |
+| prefecture         | string | null: false |
+| addresses          | string | null: false |
+| building           | string | mull: true  | 
+| phone_number       | string | null: false |
 
 ### Association
 belongs_to : order
-belongs_to :user
