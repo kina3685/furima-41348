@@ -1,24 +1,51 @@
-# README
+#テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## user  テーブル
+| Column             | Type   | Options     |
+| ------------------ | ------ | ----------- |
+| email              | string | null: false, unique: true |
+| encrypted_password | string | null: false |
+| name               | string | null: false |
 
-Things you may want to cover:
 
-* Ruby version
+### Association
 
-* System dependencies
+has_many :item
+has_many :order
 
-* Configuration
+## item  テーブル
+| column             |type    |options      |
+|--------------------|--------|-------------|
+| name               | string | null: false |
+| description        | text   | null: false |
+| price              | integer | null: false |
+| user_id            | integer | null: false, foreign_key: true|
 
-* Database creation
+### Association
+belongs_to :user
+belongs_to :order
 
-* Database initialization
+## order テーブル
+| column             |type    |options      |
+|--------------------|--------|-------------|
+| item_id            | integer | null: false, foreign_key: true |
+| user_id            | integer | null: false, foreign_key: true|
+| status             | string  | null: false |
 
-* How to run the test suite
+### Association
+belongs_to :item
+belongs_to :user
 
-* Services (job queues, cache servers, search engines, etc.)
+##　Address 　テーブル
+| column             |type    |options      |
+|--------------------|--------|-------------|
+| user_id            | integer | null: false, foreign_key: true |
+| postal_code        | string | null: false |
+| street_address     | string | null: false |
+| city               | string | null: false |
+| state              | string | null: false |
+| country            | string | null: false |
 
-* Deployment instructions
-
-* ...
+### Association
+belongs_to : order
+belongs_to :user
