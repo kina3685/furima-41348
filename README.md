@@ -21,11 +21,11 @@ has_many :orders
 |--------------------|--------|-------------|
 | name               | string | null: false |
 | description        | text   | null: false |
-| category           | integer | null: false|
-| sales_status       | integer | null: false|
-| shipping_fee_status| integer | null: false|
-| prefecture         | integer | null: false|
-| scheduled_delivery | integer | null: false|
+| category_id        | integer | null: false|
+| condition_id       | integer | null: false|
+| shipping_cost_id   | integer | null: false|
+| prefecture_id      | integer | null: false|
+| shipping_time_id   | integer | null: false|
 | price              | integer | null: false|
 | user               |references| null: false, foreign_key: true|
 
@@ -33,7 +33,7 @@ has_many :orders
 belongs_to :user
 has_one :order
 
-## order テーブル
+## orders テーブル
 | column             |type    |options      |
 |--------------------|--------|-------------|
 | item               |references| null: false, foreign_key: true |
@@ -43,17 +43,19 @@ has_one :order
 ### Association
 belongs_to :item
 belongs_to :user
+has_one :address
 
-##　Address 　テーブル
+
+## 　addresses 　テーブル
 | column             |type    |options      |
 |--------------------|--------|-------------|
-| user               |references| null: false, foreign_key: true |
+| order              |references| null: false, foreign_key: true |
 | postal_code        | string | null: false |
 | street_address     | string | null: false |
 | city               | string | null: false |
-| prefecture         | string | null: false |
+| prefecture_id      |integer | null: false |
 | addresses          | string | null: false |
-| building           | string | mull: true  | 
+| building           | string |
 | phone_number       | string | null: false |
 
 ### Association
