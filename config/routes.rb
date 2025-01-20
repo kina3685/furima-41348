@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
- 
+  devise_for :user
   root to: "items#index"
   get 'items/index'
-  get 'donations/index'
+    resources :users,only: [:show,:edit, :update]
+   
+
+
 end
 
