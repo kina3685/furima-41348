@@ -15,13 +15,12 @@ class User < ApplicationRecord
 
   # お名前(全角)のバリデーション（漢字・ひらがな・カタカナのみ許可）
   validates :last_name, :first_name, format: {
-    with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/,
-    message: 'は全角（漢字・ひらがな・カタカナ）で入力してください'
+    with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/
+
   }
 
   # お名前カナ(全角)のバリデーション（全角カタカナのみ許可）
   validates :last_name_kana, :first_name_kana, format: {
-    with: /\A[\p{katakana}ー－]+\z/,
-    message: 'は全角カタカナで入力してください'
+    with: /\A[\p{katakana}ー－]+\z/
   }
 end
