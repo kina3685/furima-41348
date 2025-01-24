@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   # 必須項目のバリデーション
-  validates :nickname, :last_name, :first_name, :last_name_kana, :first_name_kana, :birth_date, presence: true
+  validates :nickname, :birth_date, presence: true
 
   # パスワードのバリデーション
   validates :password, format: {
