@@ -9,18 +9,25 @@ class User < ApplicationRecord
 
   # パスワードのバリデーション
   validates :password, format: {
-    with: /\A(?=.*?[a-zA-Z])(?=.*?\d)[a-zA-Z\d]{6,}\z/,
-    message: 'は6文字以上で、英字と数字を両方含めて設定してください'
+    with: /\A(?=.*?[a-zA-Z])(?=.*?\d)[a-zA-Z\d]{6,}\z/
   }
 
-  # お名前(全角)のバリデーション（漢字・ひらがな・カタカナのみ許可）
-  validates :last_name, :first_name, format: {
-    with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/
+  # 名前に関するバリデーション
+  with_options presence: true do
+    validates :last_name, format: {
+      with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/
+    }
 
-  }
+    validates :first_name, format: {
+      with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/
+    }
 
-  # お名前カナ(全角)のバリデーション（全角カタカナのみ許可）
-  validates :last_name_kana, :first_name_kana, format: {
-    with: /\A[\p{katakana}ー－]+\z/
-  }
+    validates :last_name_kana, format: {
+      with: /\A[\p{katakana}ー－]+\z/
+    }
+
+    validates :first_name_kana, format: {
+      with: /\A[\p{katakana}ー－]+\z/
+    }
+  end
 end
