@@ -8,13 +8,18 @@ RSpec.describe Item, type: :model do
   describe '商品のバリデーション' do
     context '正常系' do
       it 'すべての項目が正しく入力されていれば登録できる' do
-        @item.image.attach(io: File.open(Rails.root.join('spec/test/sample.jpg')), filename: 'sample.jpg',
-                           content_type: 'image/jpeg')
+        @item = FactoryBot.build(:item, :with_image)
         expect(@item).to be_valid
       end
     end
 
     context '異常系' do
+      it 'ユーザーが紐づいていないと登録できない' do
+        @item = FactoryBot.build(:item, :with_image, user: nil) # 画像付きで作成し、user を nil にする
+        @item.valid?
+        expect(@item.errors.full_messages).to include 'User must exist'
+      end
+
       it '画像がアップロードされていない場合、エラーメッセージが表示される' do
         @item.image = nil
         @item.valid?
@@ -27,7 +32,7 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include "Name can't be blank"
       end
 
-      it '説明が空では登録できない' do
+      it '商品説明が空では登録できない' do
         @item.description = ''
         @item.valid?
         expect(@item.errors.full_messages).to include "Description can't be blank"
