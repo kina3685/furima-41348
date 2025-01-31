@@ -1,7 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit]
   def index
-    @item = Item.order('created_at DESC')
   end
 
   def create
@@ -15,15 +14,12 @@ class ItemsController < ApplicationController
 
   def new
     @item = Item.new
-    # redirect_to root_path
   end
 
   def show
-    @item = Item.find(params[:id])
   end
 
   def edit
-    @item = Item.find(params[:id])
   end
 
   private
