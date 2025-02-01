@@ -8,7 +8,8 @@ class ItemsController < ApplicationController
     if @item.save
       redirect_to root_path, notice: '商品を出品しました。'
     else
-      render :new, status: :unprocessable_entity # Turboが適切に処理できるようにステータスコードを指定
+      puts @item.errors.full_messages
+      render :new, status: :unprocessable_entity
     end
   end
 
