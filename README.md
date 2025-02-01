@@ -37,7 +37,7 @@ has_one :order
 | column             |type    |options      |
 |--------------------|--------|-------------|
 | item               |references| null: false, foreign_key: true |
-| user               |references| null: false, foreign_key: true|
+| user               |references| null: false, foreign_key: true| 
 
 
 ### Association
