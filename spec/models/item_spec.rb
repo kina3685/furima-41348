@@ -2,20 +2,19 @@ require 'rails_helper'
 
 RSpec.describe Item, type: :model do
   before do
-    @item = FactoryBot.build(:item)
+    @item = FactoryBot.build(:item, :with_image)
   end
 
   describe '商品のバリデーション' do
-    context '正常系' do
+    context '出品ができる場合' do
       it 'すべての項目が正しく入力されていれば登録できる' do
-        @item = FactoryBot.build(:item, :with_image)
         expect(@item).to be_valid
       end
     end
 
-    context '異常系' do
+    context '出品ができない場合' do
       it 'ユーザーが紐づいていないと登録できない' do
-        @item = FactoryBot.build(:item, :with_image, user: nil) # 画像付きで作成し、user を nil にする
+        @item.user = nil
         @item.valid?
         expect(@item.errors.full_messages).to include 'User must exist'
       end
