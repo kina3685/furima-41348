@@ -1,10 +1,8 @@
 class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
-  # has_one :order
-  # def sold_out?
-  # order.present?
-  # end
+  has_one :order
+
   # ActiveHash関連
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
@@ -17,7 +15,7 @@ class Item < ApplicationRecord
   with_options presence: true do
     validates :name
     validates :description
-    validates :image
+    validates :image, presence: true, unless: :was_attached?
     validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
   end
 
@@ -27,5 +25,13 @@ class Item < ApplicationRecord
     validates :shipping_cost_id
     validates :prefecture_id
     validates :shipping_time_id
+  end
+
+  def was_attached?
+    image.attached?
+  end
+
+  def sold_out?
+    order.present?
   end
 end
