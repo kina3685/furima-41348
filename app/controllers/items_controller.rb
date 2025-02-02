@@ -28,6 +28,10 @@ class ItemsController < ApplicationController
     redirect_to root_path
   end
 
+  def sold?
+    order.present?
+  end
+
   private
 
   def item_params

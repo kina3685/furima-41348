@@ -31,7 +31,7 @@ class Item < ApplicationRecord
     image.attached?
   end
 
-  def sold_out?
-    order.present?
-  end
+  # def sold_out?
+  # order.present?
+  # end
 end
