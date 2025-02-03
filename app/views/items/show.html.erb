@@ -4,7 +4,7 @@
 <div class="item-show">
   <div class="item-box">
     <h2 class="name">
-      <%= "商品名" %>
+      <%= @item.name %>
     </h2>
     <div class="item-img-content">
 
@@ -23,7 +23,7 @@
         <p>¥<%= @item.price %></p>
         </span>
         <span class="item-postage">
-          <%= "配送料負担" %>
+          <%= @item.shipping_cost.name %>
         </span>
       </div>
 
@@ -34,15 +34,13 @@
       <%= link_to "削除", "#", data: {turbo_method: :delete}, class:"item-destroy" %>
     <% else %>
 
-    <%# 商品が売れていない場合はこちらを表示しましょう %>
       <% if @item.order.blank? %>
         <%= link_to "購入画面に進む", new_order_path(item_id: @item.id),class:"item-red-btn"%>
-    <%# //商品が売れていない場合はこちらを表示しましょう %>
+
       <% end %>
     <% end %>
   <% end %>
 
-    <%# //ログインしているユーザーと出品しているユーザーが、同一人物の場合と同一人物ではない場合で、処理を分けましょう %>
 
     <div class="item-explain-box">
       <span><%= "商品説明" %></span>
@@ -51,7 +49,7 @@
       <tbody>
         <tr>
           <th class="detail-item">出品者</th>
-          <td class="detail-value"><%= @item.name %></td>
+          <td class="detail-value"><%= @item.user.nickname %></td>
         </tr>
         <tr>
           <th class="detail-item">カテゴリー</th>
@@ -111,7 +109,7 @@
     </a>
   </div>
   <%# 詳細ページで表示されている商品のカテゴリー名を表示しましょう %>
-  <a href="#" class="another-item"><%= "商品のカテゴリー名" %>をもっと見る</a>
+  <a href="#" class="another-item"><%= @item.category.name %>をもっと見る</a>
   <%# //詳細ページで表示されている商品のカテゴリー名を表示しましょう %>
 </div>
 
