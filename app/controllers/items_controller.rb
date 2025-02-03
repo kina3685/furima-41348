@@ -23,7 +23,6 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-    # redirect_to root_path
   end
 
   def sold?
@@ -35,11 +34,11 @@ class ItemsController < ApplicationController
   end
 
   def update
-    if @item.update(item_params)
-      redirect_to item_path(@item), notice: '商品情報が更新されました。'
-    else
-      render :edit, status: :unprocessable_entity
-    end
+    # if @item.update(item_params)
+    #  redirect_to item_path(@item), notice: '商品情報が更新されました。'
+    # else
+    #  render :edit, status: :unprocessable_entity
+    # end
   end
 
   private

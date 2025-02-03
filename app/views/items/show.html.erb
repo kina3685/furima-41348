@@ -29,13 +29,15 @@
 
   <% if user_signed_in? %>
     <% if current_user.id == @item.user_id %>
-      <%= link_to "商品の編集",edit_item_path , method: :get, class: "item-red-btn" %>
+      <%= link_to "商品の編集","#", method: :get, class: "item-red-btn" %>
+      <%#edit_item_path を入れる %>
       <p class="or-text">or</p>
       <%= link_to "削除", "#", data: {turbo_method: :delete}, class:"item-destroy" %>
     <% else %>
 
       <% if @item.order.blank? %>
-        <%= link_to "購入画面に進む", new_order_path(item_id: @item.id),class:"item-red-btn"%>
+        <%= link_to "購入画面に進む","#" ,class:"item-red-btn"%>
+        <%#new_order_path(item_id:) @item.id を入れる%>
 
       <% end %>
     <% end %>
@@ -43,7 +45,7 @@
 
 
     <div class="item-explain-box">
-      <span><%= "商品説明" %></span>
+      <span><%= @item.description %></span>
     </div>
     <table class="detail-table">
       <tbody>
