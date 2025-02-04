@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :edit]
-  before_action :set_item, only: [:update, :edit, :show] # , :destroy
-  before_action :redirect_if_not_owner, only: [:edit, :update]
+  before_action :authenticate_user!, only: [:new, :edit, :destroy]
+  before_action :set_item, only: [:update, :edit, :show, :destroy]
+  before_action :redirect_if_not_owner, only: [:edit, :update, :destroy]
 
   def index
     @items = Item.order(created_at: :desc)
@@ -40,11 +40,11 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    # if @item.destroy
-    #  redirect_to items_path, notice: '商品を削除しました'
-    # else
-    #  redirect_to item_path(@item), alert: '商品を削除できませんでした'
-    # end
+    if @item.destroy
+      redirect_to items_path, notice: '商品を削除しました'
+    else
+      redirect_to item_path(@item), alert: '商品を削除できませんでした'
+    end
   end
 
   private
