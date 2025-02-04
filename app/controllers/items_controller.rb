@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit]
-  before_action :set_item, only: [:edit, :update, :show]
-  before_action :redirect_if_not_owner, only: [:edit, :update]
+  before_action :set_item, only: [:edit] # , :destroy
+  # before_action :redirect_if_not_owner, only: [:edit, :update]
 
   def index
     @items = Item.order(created_at: :desc)
@@ -30,7 +30,6 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    @item = Item.find(params[:id])
   end
 
   def update
@@ -41,6 +40,14 @@ class ItemsController < ApplicationController
     # end
   end
 
+  def destroy
+    # if @item.destroy
+    #  redirect_to items_path, notice: '商品を削除しました'
+    # else
+    #  redirect_to item_path(@item), alert: '商品を削除できませんでした'
+    # end
+  end
+
   private
 
   def set_item
@@ -48,9 +55,9 @@ class ItemsController < ApplicationController
     redirect_to root_path, alert: '商品が見つかりません。' if @item.nil?
   end
 
-  def redirect_if_not_owner
-    redirect_to root_path, alert: '他のユーザーの商品は編集できません。' if @item.user_id != current_user.id
-  end
+  # def redirect_if_not_owner
+  #    redirect_to root_path, alert: '他のユーザーの商品は編集できません。' if @item.user_id != current_user.id
+  # end
 
   def item_params
     params.require(:item).permit(
