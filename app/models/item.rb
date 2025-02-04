@@ -2,9 +2,7 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
   # has_one :order
-  # def sold_out?
-  # order.present?
-  # end
+
   # ActiveHash関連
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
@@ -28,4 +26,8 @@ class Item < ApplicationRecord
     validates :prefecture_id
     validates :shipping_time_id
   end
+
+  # def sold_out?
+  # order.present?
+  # end
 end
