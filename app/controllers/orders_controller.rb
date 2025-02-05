@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item, only: [:index, :create]
+  before_action :redirect_if_seller, only: [:index, :create]
 
   def index
     gon.public_key = ENV['PAYJP_PUBLIC_KEY']
@@ -30,6 +31,13 @@ class OrdersController < ApplicationController
 
   def set_item
     @item = Item.find(params[:item_id])
+  end
+
+  # 自身が出品した商品の購入ページにアクセスしようとした場合はトップページへリダイレクト
+  def redirect_if_seller
+    return unless current_user == @item.user
+
+    redirect_to root_path, alert: '自身が出品した商品の購入ページには遷移できません。'
   end
 
   def pay_item
