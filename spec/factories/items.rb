@@ -11,14 +11,8 @@ FactoryBot.define do
     price { 500 }
 
     # 画像ありのアイテム
-    trait :with_image do
-      after(:build) do |item|
-        item.image.attach(
-          io: File.open(Rails.root.join('spec/test/sample.jpg')),
-          filename: 'sample.jpg',
-          content_type: 'image/jpeg'
-        )
-      end
+    after(:build) do |item|
+      item.image.attach(io: File.open('public/images/sample.jpg'), filename: 'sample.jpg')
     end
   end
 end
