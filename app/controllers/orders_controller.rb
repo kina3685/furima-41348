@@ -10,7 +10,6 @@ class OrdersController < ApplicationController
 
   def create
     @order_address = OrderAddress.new(order_params)
-    Rails.logger.debug "Received token: #{params[:token]}"
     if @order_address.valid?
 
       pay_item
