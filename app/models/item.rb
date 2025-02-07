@@ -1,7 +1,7 @@
 class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
-  # has_one :order
+  has_one :order
 
   # ActiveHash関連
   extend ActiveHash::Associations::ActiveRecordExtensions
@@ -27,7 +27,7 @@ class Item < ApplicationRecord
     validates :shipping_time_id
   end
 
-  # def sold_out?
-  # order.present?
-  # end
+  def sold_out?
+    order.present?
+  end
 end

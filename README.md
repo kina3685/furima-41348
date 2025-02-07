@@ -34,7 +34,7 @@ belongs_to :user
 has_one :order
 
 ## orders テーブル
-| column             |type    |options      |
+| column             |type    |options      | 
 |--------------------|--------|-------------|
 | item               |references| null: false, foreign_key: true |
 | user               |references| null: false, foreign_key: true| 
